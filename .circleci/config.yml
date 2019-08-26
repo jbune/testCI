@@ -25,7 +25,7 @@ jobs:
           working_directory: ~/myapp/myapp
       - persist_to_workspace:
           root: ~/myapp
-          paths:
+          paths: myapp/
             - *
 
   deploy-staging:
