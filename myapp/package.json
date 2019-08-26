@@ -1,0 +1,22 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "jshint": "latest",
+    "browserify": "latest",
+    "mocha": "latest"
+  },
+  "scripts": {
+    "lint": "jshint **.js",
+    "test": "mocha test/",
+    "build": "browserify index.js > myproject.min.js",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
