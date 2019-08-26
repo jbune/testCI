@@ -29,12 +29,8 @@ jobs:
       enabled: true
     requires:
       - build
-      filters:
-        branches:
-          only: staging  
     working_directory: ~/myapp
     steps:
-      - checkout # check out the code in the project directory
       - add_ssh_keys:
           fingerprints:
             - "1f:6b:cc:97:f7:00:f5:12:f6:f3:d5:85:d5:90:79:86"
