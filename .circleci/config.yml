@@ -7,10 +7,10 @@
         - checkout # check out the code in the project directory
         - run:
           name: cd to folder
-          command: 'cd myapp'
+          command: cd myapp
         - run:
           name: npm install
-          command: 'npm install'
+          command: npm install
         - run:
           name: build
-          command: 'npm run build'
+          command: npm run build
