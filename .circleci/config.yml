@@ -13,6 +13,9 @@
             name: ls test
             command: 'ls -ltr'
         - run:
+            name: pwd test
+            command: 'pwd'
+        - run:
             name: npm install
             command: npm install
         - run:
