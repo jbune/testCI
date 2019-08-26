@@ -27,6 +27,11 @@ jobs:
   deploy-staging:
     machine:
       enabled: true
+    requires:
+            - build
+          filters:
+            branches:
+              only: staging  
     working_directory: ~/myapp
     steps:
       - checkout # check out the code in the project directory
@@ -45,14 +50,3 @@ jobs:
           command: |
             scp -o "StrictHostKeyChecking=no"  -r ~/myapp/myapp ubuntu@13.59.57.243:/home/ubuntu/circle/
 
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy-staging:
-          requires:
-            - build
-          filters:
-            branches:
-              only: staging
