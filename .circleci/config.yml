@@ -29,5 +29,5 @@
         - deploy:
             name: Deploy Over SSH
             command: |
-            ssh -o "StrictHostKeyChecking no" ubuntu@$13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
+              ssh -o "StrictHostKeyChecking no" ubuntu@$13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
 
