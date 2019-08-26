@@ -1,43 +1,60 @@
-  version: 2.1
-  jobs:
-    build:
-      working_directory: ~/myapp
-      docker: 
-        - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
-      steps:
-        - checkout # check out the code in the project directory
-        - run:
-            name: update-npm
-            command: 'sudo npm install -g npm@5.6.0'
-        - run:
-            name: ls test
-            command: 'ls -ltr'
-        - run:
-            name: pwd test
-            command: 'pwd'
-        - run:
-            name: npm install
-            command: npm install
-            working_directory: ~/myapp/myapp
-        - run:
-            name: build
-            command: npm run build
-            working_directory: ~/myapp/myapp
-        - add_ssh_keys:
-            fingerprints:
-              - "1f:6b:cc:97:f7:00:f5:12:f6:f3:d5:85:d5:90:79:86"
-        - run:
-            name: ls test
-            command: 'ls -la ~/.ssh/'
-        - run:
-            name: ls test
-            command: 'cat ~/.ssh/id_rsa'
-        - run:
-            name: Deploy Over SSH
-            command: |
-              ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
-        - run:
-            name: Deploy Over SSH
-            command: |
-              scp -o "StrictHostKeyChecking=no"  -r ~/myapp/myapp ubuntu@13.59.57.243:/home/ubuntu/circle/
-          
+version: 2  
+jobs:
+  build:
+    working_directory: ~/myapp
+    docker: 
+      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+    steps:
+      - checkout # check out the code in the project directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@5.6.0'
+      - run:
+          name: ls test
+          command: 'ls -ltr'
+      - run:
+          name: pwd test
+          command: 'pwd'
+      - run:
+          name: npm install
+          command: npm install
+          working_directory: ~/myapp/myapp
+      - run:
+          name: build
+          command: npm run build
+          working_directory: ~/myapp/myapp
+
+  deploy-staging:
+    machine:
+      enabled: true
+    working_directory: ~/myapp
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "1f:6b:cc:97:f7:00:f5:12:f6:f3:d5:85:d5:90:79:86"
+      - run:
+          name: ls test
+          command: 'ls -la ~/.ssh/'
+      - run:
+          name: ls test
+          command: 'cat ~/.ssh/id_rsa'
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
+      - run:
+          name: Deploy Over SSH
+          command: |
+            scp -o "StrictHostKeyChecking=no"  -r ~/myapp/myapp ubuntu@13.59.57.243:/home/ubuntu/circle/
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
