@@ -23,3 +23,16 @@
             name: build
             command: npm run build
             working_directory: ~/myapp/myapp
+    deploy-job:
+      steps:
+        - add_ssh_keys:
+            fingerprints:
+              - "7b:d7:fc:a8:5d:30:94:7f:6d:d9:6b:94:48:f9:83:ae"
+    deploy:
+      machine:
+        enabled: true
+      steps:
+        - run:
+          name: Deploy Over SSH
+          command: |
+            ssh ubuntu@$13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
