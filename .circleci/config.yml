@@ -36,9 +36,6 @@ jobs:
           name: ls test
           command: 'ls -la ~/.ssh/'
       - run:
-          name: ls test
-          command: 'cat ~/.ssh/id_rsa'
-      - run:
           name: Deploy Over SSH
           command: |
             ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
@@ -52,4 +49,9 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - deploy-staging
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
