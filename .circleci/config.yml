@@ -44,14 +44,3 @@ jobs:
           command: |
             scp -o "StrictHostKeyChecking=no"  -r ~/myapp/myapp ubuntu@13.59.57.243:/home/ubuntu/circle/
 
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy-staging:
-          requires:
-            - build
-          filters:
-            branches:
-              only: staging
