@@ -24,7 +24,7 @@ jobs:
           command: npm run build
           working_directory: ~/myapp/myapp
       - persist_to_workspace:
-          root: 
+          root: ~/
 
   deploy-staging:
     machine:
