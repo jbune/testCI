@@ -28,10 +28,10 @@ jobs:
     machine:
       enabled: true
     requires:
-            - build
-          filters:
-            branches:
-              only: staging  
+      - build
+      filters:
+        branches:
+          only: staging  
     working_directory: ~/myapp
     steps:
       - checkout # check out the code in the project directory
