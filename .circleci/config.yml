@@ -36,4 +36,8 @@
             name: Deploy Over SSH
             command: |
               ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@13.59.57.243 "touch /home/ubuntu/circle/joe.txt "
+        - run:
+            name: Deploy Over SSH
+            command: |
+              scp -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa -r ~/myapp/myapp ubuntu@13.59.57.243 "touch /home/ubuntu/circle/ "
           
